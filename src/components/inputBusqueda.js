@@ -5,18 +5,26 @@ import SendIcon from "@mui/icons-material/Send";
 import TextField from "@mui/material/TextField";
 import { useState, useEffect } from "react";
 
-const InputBusqueda = () => {
+const InputBusqueda = (props) => {
+  const { setPersonajes } = props;
   const [busqueda, setBusqueda] = useState("");
-  const [personaje, setPersonaje] = useState([]);
 
   useEffect(() => {
-    fetch(`https://rickandmortyapi.com/api/character?name=${busqueda}`)
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-
-        setPersonaje(data.results);
-      });
+    if (busqueda !== "") {
+      fetch(`https://rickandmortyapi.com/api/character?name=${busqueda}`)
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.error === "There is nothing here") {
+            console.log(data.error);
+            setPersonajes([]);
+            return;
+          }
+          if (data) {
+            console.log(data);
+            setPersonajes(data.results);
+          }
+        });
+    }
   }, [busqueda]);
 
   const handleChange = (e) => setBusqueda(e.target.value);
