@@ -15,9 +15,9 @@ const BarraDeNavegacion = () => {
           alt="Imagen de Rick y Morty"
         />
         <div className="container-option">
-          <li>Personajes</li>
+          <li>Sección principal</li>
+          <li>Ubicación</li>
           <li>Episodios</li>
-          <li>Estado</li>
         </div>
       </AppBar>
     </Box>
